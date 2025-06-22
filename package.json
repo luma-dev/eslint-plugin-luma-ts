@@ -9,7 +9,7 @@
   ],
   "homepage": "https://github.com/luma-dev/eslint-plugin-luma-ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "test": "vitest",
     "test-cov": "vitest --coverage",
     "lint": "eslint src --ext .ts && prettier . --list-different",

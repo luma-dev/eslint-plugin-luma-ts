@@ -20,4 +20,11 @@ export default tseslint.config(
     files: ["**/*.mjs"],
     ...tseslint.configs.disableTypeChecked,
   },
+  {
+    files: ["**/*.test.ts"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+    },
+  },
 );

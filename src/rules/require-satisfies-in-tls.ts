@@ -2,7 +2,7 @@ import { TSESTree } from "@typescript-eslint/utils";
 import { createRule } from "../index";
 
 export type Options = {
-  readonly types?: readonly string[];
+  readonly types: readonly string[];
 };
 
 const defaultOptions: Required<Options> = {
@@ -38,7 +38,7 @@ export default createRule<[Options], "requireSatisfies">({
   },
   defaultOptions: [defaultOptions],
   create(context, [options]) {
-    const allowedTypes = options.types ?? defaultOptions.types;
+    const allowedTypes = options.types;
 
     function checkTemplateLiteralExpression(node: TSESTree.TemplateLiteral) {
       for (const expression of node.expressions) {
