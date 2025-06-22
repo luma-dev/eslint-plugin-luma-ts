@@ -8,10 +8,6 @@
     "lib"
   ],
   "homepage": "https://github.com/luma-dev/eslint-plugin-luma-ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/luma-dev/eslint-plugin-luma-ts.git"
-  },
   "scripts": {
     "build": "tsc",
     "test": "vitest",
