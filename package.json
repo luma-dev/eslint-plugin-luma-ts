@@ -1,6 +1,9 @@
 {
   "name": "@luma-dev/eslint-plugin-luma-ts",
   "version": "0.0.0-dev",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "ESLint plugin for TypeScript with luma",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
