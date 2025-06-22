@@ -9,6 +9,7 @@ jobs:
   check-and-deploy:
     permissions:
       id-token: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

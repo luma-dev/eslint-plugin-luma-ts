@@ -5,7 +5,7 @@ ESLint plugin for TypeScript with custom linting rules.
 ## Installation
 
 ```bash
-npm install @luma-dev/eslint-plugin-luma-ts
+npm install --save-dev @luma-dev/eslint-plugin-luma-ts
 ```
 
 ## Usage
@@ -42,13 +42,15 @@ Template literal expressions must use the `satisfies` operator with allowed type
 **Valid:**
 
 ```typescript
-`Hello ${name satisfies string}``Count: ${count satisfies number}``BigInt: ${value satisfies bigint}`;
+`Hello ${name satisfies string}`;
+`Count: ${count satisfies number}`;
+`BigInt: ${value satisfies bigint}`;
 ```
 
 **Invalid:**
 
 ```typescript
-`Hello ${name}` // Missing satisfies
+`Hello ${name}`; // Missing satisfies
 `Count: ${count}`; // Missing satisfies
 ```
 
