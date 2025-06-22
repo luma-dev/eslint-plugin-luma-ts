@@ -1,4 +1,7 @@
+
 # @luma-dev/eslint-plugin-luma-ts
+
+[![codecov](https://codecov.io/github/luma-dev/eslint-plugin-luma-ts/graph/badge.svg?token=sfW27O2rND)](https://codecov.io/github/luma-dev/eslint-plugin-luma-ts)
 
 ESLint plugin for TypeScript with custom linting rules.
 
