@@ -6,6 +6,9 @@
     "module": "preserve",
     "moduleResolution": "bundler"
   },
-  "include": ["tests/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts"
+  ],
   "exclude": ["node_modules", "lib"]
 }

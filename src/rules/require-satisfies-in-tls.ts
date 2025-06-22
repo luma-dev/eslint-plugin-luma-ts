@@ -1,5 +1,5 @@
 import { TSESTree } from "@typescript-eslint/utils";
-import { createRule } from "../index";
+import { createRule } from "../create-rule";
 
 export type Options = {
   readonly types: readonly string[];
