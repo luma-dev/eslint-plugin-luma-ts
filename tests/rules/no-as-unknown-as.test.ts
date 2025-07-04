@@ -1,5 +1,5 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-import rule from "./no-as-unknown-as.js";
+import rule from "../../src/rules/no-as-unknown-as";
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -13,15 +13,15 @@ const ruleTester = new RuleTester({
 
 ruleTester.run("no-as-unknown-as", rule, {
   valid: [
-    // 通常のas使用は許可
+    // Regular as usage is allowed
     {
       code: `const value = someValue as string;`,
     },
-    // 単独のas unknownは許可（完全な形ではないため）
+    // Single as unknown is allowed (not the complete pattern)
     {
       code: `const value = someValue as unknown;`,
     },
-    // 型ガード関数の使用
+    // Using type guard functions
     {
       code: `
 function isString(value: unknown): value is string {
@@ -29,11 +29,11 @@ function isString(value: unknown): value is string {
 }
 const value: unknown = getData();
 if (isString(value)) {
-  console.log(value); // string型として扱える
+  console.log(value); // value is safely typed as string
 }
       `,
     },
-    // パース関数の使用
+    // Using parse functions
     {
       code: `
 function parseString(value: unknown): string {
@@ -45,13 +45,13 @@ function parseString(value: unknown): string {
 const value = parseString(getData());
       `,
     },
-    // 型アサーションではない構文
+    // Type annotation syntax (not type assertion)
     {
       code: `const value: unknown = someValue;`,
     },
   ],
   invalid: [
-    // 基本的な as unknown as パターン
+    // Basic as unknown as pattern
     {
       code: `const value = someValue as unknown as string;`,
       errors: [
@@ -60,7 +60,7 @@ const value = parseString(getData());
         },
       ],
     },
-    // 複雑な型での as unknown as パターン
+    // Complex type with as unknown as pattern
     {
       code: `const value = getData() as unknown as { name: string; age: number };`,
       errors: [
@@ -69,7 +69,7 @@ const value = parseString(getData());
         },
       ],
     },
-    // 配列型での as unknown as パターン
+    // Array type with as unknown as pattern
     {
       code: `const arr = someArray as unknown as string[];`,
       errors: [
@@ -78,7 +78,7 @@ const value = parseString(getData());
         },
       ],
     },
-    // ジェネリック型での as unknown as パターン
+    // Generic type with as unknown as pattern
     {
       code: `const value = obj as unknown as Map<string, number>;`,
       errors: [
@@ -87,7 +87,7 @@ const value = parseString(getData());
         },
       ],
     },
-    // 関数の戻り値での使用
+    // Usage in function return value
     {
       code: `
 function getValue() {
@@ -100,7 +100,7 @@ function getValue() {
         },
       ],
     },
-    // 変数代入での使用
+    // Usage in variable assignment
     {
       code: `
 let value: string;

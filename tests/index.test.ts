@@ -1,13 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { rules, configs } from "./index.js";
-import requireSatisfiesInTls from "./rules/require-satisfies-in-tls.js";
-import noAsUnknownAs from "./rules/no-as-unknown-as.js";
+import { rules, configs } from "../src/index";
+import requireSatisfiesInTls from "../src/rules/require-satisfies-in-tls";
+import noAsUnknownAs from "../src/rules/no-as-unknown-as";
+import noExplicitReturnIs from "../src/rules/no-explicit-return-is";
 
 describe("index exports", () => {
   it("exports all rules", () => {
     expect(rules).toEqual({
       "require-satisfies-in-tls": requireSatisfiesInTls,
       "no-as-unknown-as": noAsUnknownAs,
+      "no-explicit-return-is": noExplicitReturnIs,
     });
   });
 
@@ -18,6 +20,7 @@ describe("index exports", () => {
       rules: {
         "luma-ts/require-satisfies-in-tls": "error",
         "luma-ts/no-as-unknown-as": "error",
+        "luma-ts/no-explicit-return-is": "error",
       },
     });
   });

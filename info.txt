@@ -1,1 +1,0 @@
-eslint.config.mjsを用意せよ。 // @ts-check を先頭に忘れぬように。

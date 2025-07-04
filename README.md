@@ -23,6 +23,7 @@ export default [
     rules: {
       "luma-ts/require-satisfies-in-tls": "error",
       "luma-ts/no-as-unknown-as": "error",
+      "luma-ts/no-explicit-return-is": "error",
     },
   },
 ];
@@ -112,5 +113,56 @@ This rule has no configuration options.
 ```javascript
 {
   'luma-ts/no-as-unknown-as': 'error'
+}
+```
+
+### `no-explicit-return-is`
+
+Disallows explicit type predicate return types in function declarations and encourages TypeScript inference or alternative patterns.
+
+This rule helps maintain cleaner code by preventing explicit type predicate declarations in return types. Type predicates can still be used through type annotations on variables or with the `satisfies` operator.
+
+**Valid:**
+
+```typescript
+// Let TypeScript infer the return type
+const f = (a: string) => a === "b";
+
+// Using satisfies operator
+const f = ((a: string) => a === "b") satisfies (a: string) => a is "b";
+
+// Type annotation on variable declaration
+const f: (a: string) => a is "b" = (a: string) => a === "b";
+
+// Regular boolean return type
+function isString(value: unknown): boolean {
+  return typeof value === "string";
+}
+```
+
+**Invalid:**
+
+```typescript
+// Explicit type predicate in arrow function
+const f = (a: string): a is "b" => a === "b";
+
+// Explicit type predicate in function declaration
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+// Explicit type predicate in function expression
+const isNumber = function (value: unknown): value is number {
+  return typeof value === "number";
+};
+```
+
+This rule has no configuration options.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/no-explicit-return-is': 'error'
 }
 ```
