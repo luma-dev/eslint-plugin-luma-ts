@@ -22,6 +22,7 @@ export default [
     },
     rules: {
       "luma-ts/require-satisfies-in-tls": "error",
+      "luma-ts/no-as-unknown-as": "error",
     },
   },
 ];
@@ -65,5 +66,51 @@ Template literal expressions must use the `satisfies` operator with allowed type
 ```javascript
 {
   'luma-ts/require-satisfies-in-tls': ['error', { types: ['string', 'CustomType'] }]
+}
+```
+
+### `no-as-unknown-as`
+
+Disallows the `as unknown as T` form of type casting and suggests using parse or type-guard functions instead.
+
+This rule helps maintain type safety by preventing dangerous double type assertions that bypass TypeScript's type checking.
+
+**Valid:**
+
+```typescript
+// Using type guards
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+if (isString(value)) {
+  console.log(value); // value is safely typed as string
+}
+
+// Using parse functions
+function parseUser(data: unknown): User {
+  // validate and parse data
+  return parsedUser;
+}
+const user = parseUser(data);
+
+// Single type assertion (still allowed, though not recommended)
+const value = data as string;
+```
+
+**Invalid:**
+
+```typescript
+const value = data as unknown as string; // Double assertion bypasses type safety
+const user = response as unknown as User; // Dangerous pattern
+const items = data as unknown as string[]; // Should use proper validation
+```
+
+This rule has no configuration options.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/no-as-unknown-as': 'error'
 }
 ```
