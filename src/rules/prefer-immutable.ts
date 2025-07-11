@@ -1,5 +1,4 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
-import type { RuleFixer } from "@typescript-eslint/utils/ts-eslint";
+import { AST_NODE_TYPES, TSESTree, TSESLint } from "@typescript-eslint/utils";
 import { createRule } from "../create-rule.js";
 
 type Options = Record<string, never>;
@@ -41,7 +40,7 @@ export default createRule<
     const sourceCode = context.sourceCode;
 
     function addReadonlyToProperty(
-      fixer: RuleFixer,
+      fixer: TSESLint.RuleFixer,
       node: TSESTree.TSPropertySignature | TSESTree.TSIndexSignature,
     ) {
       const firstToken = sourceCode.getFirstToken(node);
@@ -53,7 +52,10 @@ export default createRule<
       return fixer.insertTextBefore(firstToken, "readonly ");
     }
 
-    function fixArrayType(fixer: RuleFixer, node: TSESTree.TSArrayType) {
+    function fixArrayType(
+      fixer: TSESLint.RuleFixer,
+      node: TSESTree.TSArrayType,
+    ) {
       const elementType = sourceCode.getText(node.elementType);
       const start = node.range[0];
       const end = node.range[1];
@@ -65,7 +67,7 @@ export default createRule<
     }
 
     function fixArrayReference(
-      fixer: RuleFixer,
+      fixer: TSESLint.RuleFixer,
       node: TSESTree.TSTypeReference,
     ) {
       if (
