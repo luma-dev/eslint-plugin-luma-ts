@@ -24,6 +24,7 @@ export default [
       "luma-ts/require-satisfies-in-tls": "error",
       "luma-ts/no-as-unknown-as": "error",
       "luma-ts/no-explicit-return-is": "error",
+      "luma-ts/prefer-immutable": "error",
     },
   },
 ];
@@ -164,5 +165,62 @@ This rule has no configuration options.
 ```javascript
 {
   'luma-ts/no-explicit-return-is': 'error'
+}
+```
+
+### `prefer-immutable`
+
+Encourages the use of immutable patterns by recommending `readonly` modifiers and immutable array/object types.
+
+This rule helps maintain immutability in TypeScript code by suggesting the use of `readonly` for properties and recommending `ReadonlyArray<T>` or `readonly T[]` over mutable array types.
+
+**Valid:**
+
+```typescript
+// Using readonly for object properties
+interface User {
+  readonly id: string;
+  readonly name: string;
+}
+
+// Using ReadonlyArray
+function processItems(items: ReadonlyArray<string>) {
+  // items cannot be mutated
+}
+
+// Using readonly array syntax
+function processNumbers(numbers: readonly number[]) {
+  // numbers cannot be mutated
+}
+
+// Const assertions for literal values
+const config = {
+  host: "localhost",
+  port: 3000,
+} as const;
+```
+
+**Invalid:**
+
+```typescript
+// Mutable object properties
+interface User {
+  id: string; // Should be readonly
+  name: string; // Should be readonly
+}
+
+// Mutable array parameters
+function processItems(items: string[]) {
+  // items can be mutated - prefer ReadonlyArray<string> or readonly string[]
+}
+```
+
+This rule has no configuration options.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/prefer-immutable': 'error'
 }
 ```
