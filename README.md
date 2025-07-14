@@ -211,7 +211,7 @@ interface User {
 
 // Mutable array parameters
 function processItems(items: string[]) {
-  // items can be mutated - prefer ReadonlyArray<string> or readonly string[]
+  // Should use readonly array type
 }
 ```
 
