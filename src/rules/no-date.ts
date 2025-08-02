@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, TSESTree, TSESLint } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 import { createRule } from "../create-rule.js";
 
 type Options = Record<string, never>;
