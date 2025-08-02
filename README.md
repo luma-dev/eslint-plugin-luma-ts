@@ -25,6 +25,7 @@ export default [
       "luma-ts/no-as-unknown-as": "error",
       "luma-ts/no-explicit-return-is": "error",
       "luma-ts/prefer-immutable": "error",
+      "luma-ts/no-date": "error",
     },
   },
 ];
@@ -222,5 +223,65 @@ This rule has no configuration options.
 ```javascript
 {
   'luma-ts/prefer-immutable': 'error'
+}
+```
+
+### `no-date`
+
+Disallows the usage of the legacy `Date` object and suggests using the modern Temporal API instead.
+
+This rule helps maintain better date/time handling by encouraging the adoption of the Temporal API, which provides improved precision, time zone support, and a more intuitive API.
+
+**Valid:**
+
+```typescript
+// Using Temporal API
+const now = Temporal.Now.instant();
+const plainNow = Temporal.Now.plainDateTime();
+const date = Temporal.Instant.from("2023-12-25T00:00:00Z");
+const timestamp = Temporal.Instant.fromEpochMilliseconds(1234567890);
+
+// Getting current time
+const currentTime = Temporal.Now.instant().epochMilliseconds;
+
+// Type annotations
+let birthday: Temporal.PlainDate;
+function formatDate(date: Temporal.ZonedDateTime): string {}
+```
+
+**Invalid:**
+
+```typescript
+// Constructor usage
+const now = new Date();
+const date = new Date("2023-12-25");
+const timestamp = new Date(1234567890);
+
+// Static methods
+const currentTime = Date.now();
+const parsed = Date.parse("2023-12-25");
+
+// Type annotations
+let birthday: Date;
+function formatDate(date: Date): string {}
+
+// instanceof checks
+if (value instanceof Date) {
+}
+```
+
+This rule provides automatic fixes for common Date usage patterns, such as:
+
+- `new Date()` → `Temporal.Now.plainDateTime()` or `Temporal.Now.instant()`
+- `Date.now()` → `Temporal.Now.instant().epochMilliseconds`
+- `Date.parse()` → `Temporal.Instant.from()`
+
+This rule has no configuration options.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/no-date': 'error'
 }
 ```

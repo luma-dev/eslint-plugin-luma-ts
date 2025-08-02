@@ -4,6 +4,7 @@ import requireSatisfiesInTls from "../src/rules/require-satisfies-in-tls";
 import noAsUnknownAs from "../src/rules/no-as-unknown-as";
 import noExplicitReturnIs from "../src/rules/no-explicit-return-is";
 import preferImmutable from "../src/rules/prefer-immutable";
+import noDate from "../src/rules/no-date";
 
 describe("index exports", () => {
   it("exports all rules", () => {
@@ -12,6 +13,7 @@ describe("index exports", () => {
       "no-as-unknown-as": noAsUnknownAs,
       "no-explicit-return-is": noExplicitReturnIs,
       "prefer-immutable": preferImmutable,
+      "no-date": noDate,
     });
   });
 
@@ -24,6 +26,7 @@ describe("index exports", () => {
         "luma-ts/no-as-unknown-as": "error",
         "luma-ts/no-explicit-return-is": "error",
         "luma-ts/prefer-immutable": "error",
+        "luma-ts/no-date": "error",
       },
     });
   });
