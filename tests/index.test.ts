@@ -5,6 +5,7 @@ import noAsUnknownAs from "../src/rules/no-as-unknown-as";
 import noExplicitReturnIs from "../src/rules/no-explicit-return-is";
 import preferImmutable from "../src/rules/prefer-immutable";
 import noDate from "../src/rules/no-date";
+import noString from "../src/rules/no-string";
 
 describe("index exports", () => {
   it("exports all rules", () => {
@@ -14,6 +15,7 @@ describe("index exports", () => {
       "no-explicit-return-is": noExplicitReturnIs,
       "prefer-immutable": preferImmutable,
       "no-date": noDate,
+      "no-string": noString,
     });
   });
 
@@ -27,6 +29,7 @@ describe("index exports", () => {
         "luma-ts/no-explicit-return-is": "error",
         "luma-ts/prefer-immutable": "error",
         "luma-ts/no-date": "error",
+        "luma-ts/no-string": "error",
       },
     });
   });

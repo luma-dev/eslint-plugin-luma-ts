@@ -3,6 +3,7 @@ import noAsUnknownAs from "./rules/no-as-unknown-as";
 import noExplicitReturnIs from "./rules/no-explicit-return-is";
 import preferImmutable from "./rules/prefer-immutable";
 import noDate from "./rules/no-date";
+import noString from "./rules/no-string";
 
 export const rules = {
   "require-satisfies-in-tls": requireSatisfiesInTls,
@@ -10,6 +11,7 @@ export const rules = {
   "no-explicit-return-is": noExplicitReturnIs,
   "prefer-immutable": preferImmutable,
   "no-date": noDate,
+  "no-string": noString,
 };
 
 export const configs = {
@@ -21,6 +23,7 @@ export const configs = {
       "luma-ts/no-explicit-return-is": "error",
       "luma-ts/prefer-immutable": "error",
       "luma-ts/no-date": "error",
+      "luma-ts/no-string": "error",
     },
   },
 };

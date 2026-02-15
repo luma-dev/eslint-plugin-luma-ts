@@ -26,6 +26,7 @@ export default [
       "luma-ts/no-explicit-return-is": "error",
       "luma-ts/prefer-immutable": "error",
       "luma-ts/no-date": "error",
+      "luma-ts/no-string": "error",
     },
   },
 ];
@@ -283,5 +284,44 @@ This rule has no configuration options.
 ```javascript
 {
   'luma-ts/no-date': 'error'
+}
+```
+
+### `no-string`
+
+Disallows `String()` and `new String()` for type conversion and suggests using `.toString()` or template literals instead.
+
+`String()` hides the conversion intent and can silently convert `null`/`undefined` to `"null"`/`"undefined"`. Using `.toString()` makes the conversion explicit and fails loudly on `null`/`undefined`, encouraging proper handling.
+
+**Valid:**
+
+```typescript
+// Use .toString()
+const s = value.toString();
+const n = (42).toString();
+
+// Use template literals
+const s = `${value}`;
+
+// String static methods are fine
+const ch = String.fromCharCode(65);
+const raw = String.raw`hello\nworld`;
+```
+
+**Invalid:**
+
+```typescript
+const s = String(value);
+const n = String(42);
+const wrapped = new String(value);
+```
+
+This rule has no configuration options.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/no-string': 'error'
 }
 ```
