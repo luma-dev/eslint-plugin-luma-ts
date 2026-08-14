@@ -4,6 +4,7 @@ import noExplicitReturnIs from "./rules/no-explicit-return-is";
 import preferImmutable from "./rules/prefer-immutable";
 import noDate from "./rules/no-date";
 import noString from "./rules/no-string";
+import type { TSESLint } from "@typescript-eslint/utils";
 
 export const rules = {
   "require-satisfies-in-tls": requireSatisfiesInTls,
@@ -14,9 +15,15 @@ export const rules = {
   "no-string": noString,
 };
 
+const plugin = {
+  rules,
+} satisfies TSESLint.Linter.Plugin;
+
 export const configs = {
   recommended: {
-    plugins: ["luma-ts"],
+    plugins: {
+      "luma-ts": plugin,
+    },
     rules: {
       "luma-ts/require-satisfies-in-tls": "error",
       "luma-ts/no-as-unknown-as": "error",
@@ -25,5 +32,5 @@ export const configs = {
       "luma-ts/no-date": "error",
       "luma-ts/no-string": "error",
     },
-  },
+  } satisfies TSESLint.FlatConfig.Config,
 };

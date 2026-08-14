@@ -19,10 +19,12 @@ describe("index exports", () => {
     });
   });
 
-  it("exports recommended config", () => {
+  it("exports recommended config in flat config format", () => {
     expect(configs).toHaveProperty("recommended");
     expect(configs.recommended).toEqual({
-      plugins: ["luma-ts"],
+      plugins: {
+        "luma-ts": { rules },
+      },
       rules: {
         "luma-ts/require-satisfies-in-tls": "error",
         "luma-ts/no-as-unknown-as": "error",
