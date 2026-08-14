@@ -15,10 +15,12 @@ npm install --save-dev @luma-dev/eslint-plugin-luma-ts
 Add to your ESLint configuration:
 
 ```javascript
+import lumaTsPlugin from "@luma-dev/eslint-plugin-luma-ts";
+
 export default [
   {
     plugins: {
-      "luma-ts": require("@luma-dev/eslint-plugin-luma-ts"),
+      "luma-ts": lumaTsPlugin,
     },
     rules: {
       "luma-ts/require-satisfies-in-tls": "error",
@@ -35,7 +37,9 @@ export default [
 Or use the recommended configuration:
 
 ```javascript
-export default [require("@luma-dev/eslint-plugin-luma-ts").configs.recommended];
+import lumaTsPlugin from "@luma-dev/eslint-plugin-luma-ts";
+
+export default [lumaTsPlugin.configs.recommended];
 ```
 
 ## Rules
