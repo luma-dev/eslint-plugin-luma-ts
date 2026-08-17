@@ -29,6 +29,7 @@ export default [
       "luma-ts/prefer-immutable": "error",
       "luma-ts/no-date": "error",
       "luma-ts/no-string": "error",
+      "luma-ts/no-ts-private": "error",
     },
   },
 ];
@@ -327,5 +328,51 @@ This rule has no configuration options.
 ```javascript
 {
   'luma-ts/no-string': 'error'
+}
+```
+
+### `no-ts-private`
+
+Disallows TypeScript's `private` modifier and suggests using ECMAScript `#` private fields instead.
+
+TypeScript's `private` keyword is compile-time only — after transpilation the field is publicly accessible at runtime. ECMAScript `#` private fields are enforced by the engine at runtime.
+
+**Valid:**
+
+```typescript
+class Foo {
+  #bar = 1;
+  #baz() {}
+  get #qux() {
+    return 1;
+  }
+}
+
+// private constructor is allowed (#constructor is not valid syntax)
+class Singleton {
+  private constructor() {}
+}
+```
+
+**Invalid:**
+
+```typescript
+class Foo {
+  private bar = 1; // Use #bar
+  private baz() {} // Use #baz
+  private get qux() {
+    return 1;
+  } // Use get #qux
+  constructor(private x: number) {} // Declare #x and assign manually
+}
+```
+
+This rule has no configuration options.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/no-ts-private': 'error'
 }
 ```
