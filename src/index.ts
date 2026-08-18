@@ -4,6 +4,7 @@ import noExplicitReturnIs from "./rules/no-explicit-return-is";
 import preferImmutable from "./rules/prefer-immutable";
 import noDate from "./rules/no-date";
 import noString from "./rules/no-string";
+import noTsPrivate from "./rules/no-ts-private";
 import type { TSESLint } from "@typescript-eslint/utils";
 
 export const rules = {
@@ -13,6 +14,7 @@ export const rules = {
   "prefer-immutable": preferImmutable,
   "no-date": noDate,
   "no-string": noString,
+  "no-ts-private": noTsPrivate,
 };
 
 const plugin = {
@@ -31,6 +33,7 @@ export const configs = {
       "luma-ts/prefer-immutable": "error",
       "luma-ts/no-date": "error",
       "luma-ts/no-string": "error",
+      "luma-ts/no-ts-private": "error",
     },
   } satisfies TSESLint.FlatConfig.Config,
 };
