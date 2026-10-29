@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { rules, configs } from "../src/index";
+import { rules, configs, optInRules } from "../src/index";
 import requireSatisfiesInTls from "../src/rules/require-satisfies-in-tls";
 import noAsUnknownAs from "../src/rules/no-as-unknown-as";
 import noExplicitReturnIs from "../src/rules/no-explicit-return-is";
@@ -7,6 +7,7 @@ import preferImmutable from "../src/rules/prefer-immutable";
 import noDate from "../src/rules/no-date";
 import noString from "../src/rules/no-string";
 import noTsPrivate from "../src/rules/no-ts-private";
+import noTypeAssertionAllowXstate from "../src/rules/no-type-assertion-allow-xstate";
 
 describe("index exports", () => {
   it("exports all rules", () => {
@@ -18,6 +19,7 @@ describe("index exports", () => {
       "no-date": noDate,
       "no-string": noString,
       "no-ts-private": noTsPrivate,
+      "no-type-assertion-allow-xstate": noTypeAssertionAllowXstate,
     });
   });
 
@@ -39,9 +41,11 @@ describe("index exports", () => {
     });
   });
 
-  it("recommended config includes all rules", () => {
+  it("recommended config includes all rules except opt-in ones", () => {
     const recommendedRules = Object.keys(configs.recommended.rules);
-    const allRules = Object.keys(rules).map((rule) => `luma-ts/${rule}`);
+    const allRules = Object.keys(rules)
+      .filter((rule) => !optInRules.some((optIn) => optIn === rule))
+      .map((rule) => `luma-ts/${rule}`);
     expect(recommendedRules.sort()).toEqual(allRules.sort());
   });
 });

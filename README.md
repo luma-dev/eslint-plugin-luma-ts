@@ -376,3 +376,42 @@ This rule has no configuration options.
   'luma-ts/no-ts-private': 'error'
 }
 ```
+
+### `no-type-assertion-allow-xstate`
+
+Disallows type assertions except `as const` and XState's `{} as T` type placeholders. Based on `@typescript-eslint/consistent-type-assertions` with `assertionStyle: "never"`.
+
+Not included in `recommended`.
+
+**Valid:**
+
+```typescript
+const a = [1, 2] as const;
+setup({ types: { context: {} as Ctx, events: {} as Ev } });
+createMachine({ types: {} as { context: Ctx } });
+createMachine({ schema: { context: {} as Ctx }, tsTypes: {} as Typegen0 });
+```
+
+**Invalid:**
+
+```typescript
+const a = b as string;
+const c = <string>d;
+setup({ types: { context: ctx as Ctx } });
+const e = { foo: {} as Foo };
+```
+
+By default, the config object must be passed directly to `setup` / `createMachine` / `createStore` (`name(...)` or `obj.name(...)`). Options:
+
+- `callees` (`string[]`, default `["setup", "createMachine", "createStore"]`): allowed callee names. Replaces the default list.
+- `allowOutsideCall` (`boolean`, default `false`): skip the callee check.
+
+See [docs](docs/rules/no-type-assertion-allow-xstate.md) for details.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/no-type-assertion-allow-xstate': 'error'
+}
+```
