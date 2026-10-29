@@ -5,6 +5,7 @@ import preferImmutable from "./rules/prefer-immutable";
 import noDate from "./rules/no-date";
 import noString from "./rules/no-string";
 import noTsPrivate from "./rules/no-ts-private";
+import noTypeAssertionAllowXstate from "./rules/no-type-assertion-allow-xstate";
 import type { TSESLint } from "@typescript-eslint/utils";
 
 export const rules = {
@@ -15,7 +16,14 @@ export const rules = {
   "no-date": noDate,
   "no-string": noString,
   "no-ts-private": noTsPrivate,
+  "no-type-assertion-allow-xstate": noTypeAssertionAllowXstate,
 };
+
+// Rules intentionally excluded from `configs.recommended` (opt-in only).
+// tests/index.test.ts checks that recommended covers every other rule.
+export const optInRules: ReadonlyArray<keyof typeof rules> = [
+  "no-type-assertion-allow-xstate",
+];
 
 const plugin = {
   rules,
