@@ -30,6 +30,8 @@ export default [
       "luma-ts/no-date": "error",
       "luma-ts/no-string": "error",
       "luma-ts/no-ts-private": "error",
+      "luma-ts/require-object-freeze": "error",
+      "luma-ts/no-if-without-else": "error",
     },
   },
 ];
@@ -413,5 +415,88 @@ See [docs](docs/rules/no-type-assertion-allow-xstate.md) for details.
 ```javascript
 {
   'luma-ts/no-type-assertion-allow-xstate': 'error'
+}
+```
+
+### `require-object-freeze`
+
+Requires new objects and arrays to be wrapped with `Object.freeze`. `readonly` and `as const` are not enforced at runtime.
+
+Checked: object / array literals, `Object.fromEntries` / `assign` / `create` / `groupBy` / `keys` / `values` / `entries`, `Array.from` / `of`. Spread, destructuring and `for...of` sources are allowed since they are never exposed.
+
+**Valid:**
+
+```typescript
+const a = Object.freeze({ b: 1 });
+const c = Object.freeze({ d: Object.freeze([1, 2]) });
+const f = Object.freeze(Object.fromEntries(entries));
+const g = Object.freeze(Array.from(xs));
+const [h, i] = [1, 2];
+```
+
+**Invalid:**
+
+```typescript
+const a = { b: 1 };
+const c = Object.freeze({ d: [1, 2] }); // nested literal is not frozen
+const f = Object.fromEntries(entries);
+const g = [1, 2] as const;
+```
+
+Each report has a suggestion that wraps the expression with `Object.freeze(...)`. Options:
+
+- `allowCallArguments` (`boolean`, default `false`): allow object / array literals passed directly as call / `new` arguments, including literals nested in them.
+
+See [docs](docs/rules/require-object-freeze.md) for details.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/require-object-freeze': ['error', { allowCallArguments: true }]
+}
+```
+
+### `no-if-without-else`
+
+Disallows `if` without `else` unless the `if` branch always ends with `return` or `throw` (guard clause). `break` / `continue` do not count.
+
+**Valid:**
+
+```typescript
+if (a) {
+  f();
+} else {
+  g();
+}
+if (a) return;
+if (b) {
+  f();
+  throw new Error();
+}
+```
+
+**Invalid:**
+
+```typescript
+if (a) {
+  f();
+}
+if (a) {
+  f();
+} else if (b) {
+  g();
+}
+```
+
+This rule has no configuration options.
+
+See [docs](docs/rules/no-if-without-else.md) for details.
+
+**Example configuration:**
+
+```javascript
+{
+  'luma-ts/no-if-without-else': 'error'
 }
 ```
