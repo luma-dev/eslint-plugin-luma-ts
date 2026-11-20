@@ -8,6 +8,8 @@ import noDate from "../src/rules/no-date";
 import noString from "../src/rules/no-string";
 import noTsPrivate from "../src/rules/no-ts-private";
 import noTypeAssertionAllowXstate from "../src/rules/no-type-assertion-allow-xstate";
+import requireObjectFreeze from "../src/rules/require-object-freeze";
+import noIfWithoutElse from "../src/rules/no-if-without-else";
 
 describe("index exports", () => {
   it("exports all rules", () => {
@@ -20,6 +22,8 @@ describe("index exports", () => {
       "no-string": noString,
       "no-ts-private": noTsPrivate,
       "no-type-assertion-allow-xstate": noTypeAssertionAllowXstate,
+      "require-object-freeze": requireObjectFreeze,
+      "no-if-without-else": noIfWithoutElse,
     });
   });
 
@@ -37,6 +41,8 @@ describe("index exports", () => {
         "luma-ts/no-date": "error",
         "luma-ts/no-string": "error",
         "luma-ts/no-ts-private": "error",
+        "luma-ts/require-object-freeze": "error",
+        "luma-ts/no-if-without-else": "error",
       },
     });
   });

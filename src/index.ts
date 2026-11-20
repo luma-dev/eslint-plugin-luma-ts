@@ -6,6 +6,8 @@ import noDate from "./rules/no-date";
 import noString from "./rules/no-string";
 import noTsPrivate from "./rules/no-ts-private";
 import noTypeAssertionAllowXstate from "./rules/no-type-assertion-allow-xstate";
+import requireObjectFreeze from "./rules/require-object-freeze";
+import noIfWithoutElse from "./rules/no-if-without-else";
 import type { TSESLint } from "@typescript-eslint/utils";
 
 export const rules = {
@@ -17,6 +19,8 @@ export const rules = {
   "no-string": noString,
   "no-ts-private": noTsPrivate,
   "no-type-assertion-allow-xstate": noTypeAssertionAllowXstate,
+  "require-object-freeze": requireObjectFreeze,
+  "no-if-without-else": noIfWithoutElse,
 };
 
 // Rules intentionally excluded from `configs.recommended` (opt-in only).
@@ -42,6 +46,8 @@ export const configs = {
       "luma-ts/no-date": "error",
       "luma-ts/no-string": "error",
       "luma-ts/no-ts-private": "error",
+      "luma-ts/require-object-freeze": "error",
+      "luma-ts/no-if-without-else": "error",
     },
   } satisfies TSESLint.FlatConfig.Config,
 };
